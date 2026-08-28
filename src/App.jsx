@@ -43,6 +43,14 @@ function App() {
       }
     }
 
+    if (name === 'techBrandName' && !value.trim()) {
+      return 'Tech brand name is required.'
+    }
+
+    if (name == 'userRole' && !value) {
+      return 'Please select Engineer or Tester'
+    }
+
     return ''
   }
 
@@ -231,6 +239,87 @@ function App() {
                   </p>
                 )}
               </div>
+
+              <div className='md:col-span-2'>
+                <label
+                  htmlFor='techBrandName'
+                  className='mb-2 block text-sm font-semibold text-slate-700'
+                >
+                  Tech Brand Name
+                </label>
+
+                <input
+                  id='techBrandName'
+                  type='text'
+                  name='techBrandName'
+                  value={form.techBrandName}
+                  onChange={handleChange}
+                  placeholder='Example: Galaxy'
+                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                    errors.techBrandName
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                  }`}
+                />
+
+                {errors.techBrandName && (
+                  <p className='mt-1 text-sm font-medium text-red-600'>
+                    {errors.techBrandName}
+                  </p>
+                )}
+              </div>
+
+              <fieldset className='md:col-span-2'>
+                <legend className='mb-3 text-sm font-semibold text-slate-700'>
+                  User Role
+                </legend>
+                
+                <div className='flex flex-col gap-3 sm:flex-row'>
+                  <label
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
+                      form.userRole === 'Engineer'
+                        ? 'border-blue-600 bg-blue-50 text-blue-700'
+                        : 'border-slate-300 bg-2hite text-slate-700'
+                    }`}
+                  >
+                    <input
+                      type='radio'
+                      name='userRole'
+                      value='Engineer'
+                      checked={form.userRole === 'Engineer'}
+                      onChange={handleChange}
+                      className='h-4 w-4 accent-blue-600'
+                    />
+
+                    <span className='font-medium'>Engineer</span>
+                  </label>
+
+                  <label
+                    className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
+                      form.userRole === 'Tester'
+                        ? 'border-blue-600 bg-blue-50 text-blue-700'
+                        : 'border-slate-300 bg-2hite text-slate-700'
+                    }`}
+                  >
+                    <input
+                      type='radio'
+                      name='userRole'
+                      value='Tester'
+                      checked={form.userRole === 'Tester'}
+                      onChange={handleChange}
+                      className='h-4 w-4 accent-blue-600'
+                    />
+
+                    <span className='font-medium'>Tester</span>
+                  </label>
+                </div>
+
+                {errors.userRole && (
+                  <p className='mt-2 text-sm font-medium text-red-600'>
+                    {errors.userRole}
+                  </p>
+                )}
+              </fieldset>
             </div>
           </form>
         </section>
