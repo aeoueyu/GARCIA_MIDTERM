@@ -161,6 +161,35 @@ function App() {
                   </p>
                 )}
               </div>
+
+              <div className='md:col-span-2'>
+                <label
+                  htmlFor='manufacturer'
+                  className='mb-2 block text-sm font-semibold text-slate-700'
+                >
+                  Manufacturer
+                </label>
+
+                <input
+                  id='manufacturer'
+                  type='text'
+                  name='manufacturer'
+                  value={form.manufacturer}
+                  onChange={handleChange}
+                  placeholder='Example: Samsung Electronics'
+                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                    errors.manufacturer
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                  }`}
+                />
+
+                {errors.manufacturer && (
+                  <p className='mt-1 text-sm font-medium text-red-600'>
+                    {errors.manufacturer}
+                  </p>
+                )}
+              </div>
             </div>
           </form>
         </section>
