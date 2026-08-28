@@ -58,7 +58,7 @@ function App() {
       return 'Tech brand name is required.'
     }
 
-    if (name == 'userRole' && !value) {
+    if (name === 'userRole' && !value) {
       return 'Please select Engineer or Tester'
     }
 
@@ -481,7 +481,10 @@ function App() {
               <select
                 id='roleFilter'
                 value={roleFilter}
-                onChange={(event) => setRoleFilter(event.target.value)}
+                onChange={(event) => {
+                  setRoleFilter(event.target.value)
+                  table.setPageIndex(0)
+                }}
                 className='rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-white outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
               >
                 <option value='All'>All Roles</option>
@@ -543,7 +546,7 @@ function App() {
                   </tr>
                 ))}
 
-                {table.getRowModel().rows.length == 0 && (
+                {table.getRowModel().rows.length === 0 && (
                   <tr>
                     <td
                       colSpan={columns.length}
