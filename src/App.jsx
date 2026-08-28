@@ -1,4 +1,10 @@
-import { useState } from 'react'
+import { useState , useMemo } from 'react'
+import {
+  flexRender,
+  getCoreRowModel,
+  getPaginationRowModel,
+  useReactTable,
+} from '@tanstack/react-table'
 import './App.css'
 
 const initialForm = {
@@ -134,6 +140,50 @@ function App() {
     setSuccessMessage('Gadget successfully registered!')
   }
 
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'gadgetName',
+        header: 'Gadget Name',
+      },
+      {
+        accessorKey: 'category',
+        header: 'Category',
+      },
+      {
+        accessorKey: 'manufacturer',
+        header: 'Manufacturer',
+      },
+      {
+        accessorKey: 'healthRating',
+        header: 'Health Rating',
+        cell: (info) => `${info.getValue()}/100`,
+      },
+      {
+        accessorKey: 'techBrandName',
+        header: 'Tech Brand',
+      },
+      {
+        accessorKey: 'userRole',
+        header: 'User Role',
+      },
+    ],
+    [],
+  )
+
+  const table = useReactTable({
+    data: gadgets,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: {
+      pagination: {
+        pageIndex: 0,
+        pageSize: 3,
+      },
+    },
+  })
+
   return (
     <main className='min-h-screen bg-slate-100 px-4 py-10'>
       <div className='mx-auto max-w-4xl'>
@@ -172,7 +222,7 @@ function App() {
               <div>
                 <label
                   htmlFor='gadgetName'
-                  className='mb-2 block text-sm font-semi-bold text-slate-700'
+                  className='mb-2 block text-sm font-semibold text-slate-700'
                 >
                   Gadget Name
                 </label>
@@ -330,7 +380,7 @@ function App() {
                     className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
                       form.userRole === 'Engineer'
                         ? 'border-blue-600 bg-blue-50 text-blue-700'
-                        : 'border-slate-300 bg-2hite text-slate-700'
+                        : 'border-slate-300 bg-white text-slate-700'
                     }`}
                   >
                     <input
@@ -380,6 +430,108 @@ function App() {
               Register Gadget
             </button>
           </form>
+        </section>
+
+        <section className='mt-8 rounded-2xl bg-white p-6 shadow-lg md:p-8'>
+          <div className='mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
+            <div>
+              <p className='text-sm font-bold uppercase tracking-widest text-blue-600'>
+                Inventory
+              </p>
+
+              <h2 className='text-2xl font-bold text-slate-900'>
+                Gadget Registry
+              </h2>
+            </div>
+            
+            <div className='rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700'>
+              {gadgets.length} registered
+            </div>
+          </div>
+
+          <div className='overflow-x-auto'>
+            <table className='w-full border-collapse text-left'>
+              <thead>
+                {table.getHeaderGroups().map((headerGroup) => (
+                  <tr
+                    key={headerGroup.id}
+                    className='border-b-2 border-slate-200'
+                  >
+                    {headerGroup.headers.map((header) => (
+                      <th
+                        key={header.id}
+                        className='whitespace-nowrap px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-500'
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                      </th>
+                    ))}
+                  </tr>
+                ))}
+              </thead>
+
+              <tbody>
+                {table.getRowModel().rows.map((row) => (
+                  <tr
+                    key={row.id}
+                    className='border-b border-slate-100 transition hover:bg-blue-50'
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <td
+                        key={cell.id}
+                        className='whitespace-nowrap px-4 py-4 text-sm text-slate-700'
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+
+                {table.getRowModel().rows.length == 0 && (
+                  <tr>
+                    <td
+                      colSpan={columns.length}
+                      className='px-4 py-12 text-center text-slate-500'
+                    >
+                      No gadgets registered yet.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-5 sm:flex-row">
+            <p className="text-sm text-slate-600">
+              Page {table.getState().pagination.pageIndex + 1} of{' '}
+              {Math.max(table.getPageCount(), 1)}
+            </p>
+
+            <div className="flex gap-2">
+              <button
+                type="button"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+                className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Previous
+              </button>
+
+              <button
+                type="button"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+              >
+                Next
+              </button>
+            </div>
+          </div>
         </section>
       </div>
     </main>
