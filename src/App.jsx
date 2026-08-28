@@ -33,6 +33,16 @@ function App() {
       return 'Manufacturer is required.'
     }
 
+    if (name === 'healthRating') {
+      if (value === '') {
+        return 'Health rating is required.'
+      }
+
+      if (Number(value) < 1 || Number(value) > 100) {
+        return 'Health rating must be between 1 and 100.'
+      }
+    }
+
     return ''
   }
 
@@ -187,6 +197,37 @@ function App() {
                 {errors.manufacturer && (
                   <p className='mt-1 text-sm font-medium text-red-600'>
                     {errors.manufacturer}
+                  </p>
+                )}
+              </div>
+
+              <div className='md:col-span-2'>
+                <label
+                  htmlFor='healthRating'
+                  className='mb-2 block text-sm font-semibold text-slate-700'
+                >
+                  Health Rating
+                </label>
+
+                <input
+                  id='healthRating'
+                  type='number'
+                  name='healthRating'
+                  min='1'
+                  max='100'
+                  value={form.healthRating}
+                  onChange={handleChange}
+                  placeholder='Enter a rating from 1 to 100'
+                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                    errors.healthRating
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
+                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                  }`}
+                />
+
+                {errors.healthRating && (
+                  <p className='mt-1 text-sm font-medium text-red-600'>
+                    {errors.healthRating}
                   </p>
                 )}
               </div>
