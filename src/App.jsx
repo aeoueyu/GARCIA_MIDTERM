@@ -205,30 +205,30 @@ function App() {
   })
 
   return (
-    <main className='min-h-screen bg-slate-100 px-4 py-10'>
-      <div className='mx-auto max-w-4xl'>
-        <header className='mb-8'>
-          <h1 className='text-3xl font-bold text-slate-900 md:text-4xl'>
+    <main className='min-h-screen bg-slate-950 px-4 py-10 text-slate-100'>
+      <div className='mx-auto max-w-6xl'>
+        <header className='mb-8 border-l-4 border-indigo-500 pl-5'>
+          <h1 className='text-3xl font-black tracking-tight text-white md:text-5xl'>
             Tech Gadget and Inventory Hub
           </h1>
-          <p className='mt-2 text-slate-600'>
+          <p className='mt-2 text-slate-400'>
             Register and monitor technology inventory records.
           </p>
         </header>
 
-        <section className='rounded-2xl bg-white p-6 shadow-lg md:p-8'>
+        <section className='rounded-2xl border border-slate-800 bg-slate-900/90 p-6 shadow-2xl shadow-indigo-950/30 md:p-8'>
           <div className='mb-6'>
-            <h2 className='text-2xl font-bold text-slate-900'>
+            <h2 className='text-2xl font-bold text-white'>
               Gadget Registration
             </h2>
-            <p className='mt-1 text-sm text-slate-500'>
+            <p className='mt-1 text-sm text-slate-400'>
               Complete all the required gadget information.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} noValidate>
             {successMessage && (
-              <div className='mb-5 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700'>
+              <div className='mb-5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 p-4 text-emerald-300 shadow-lg shadow-emerald-950/20'>
                 <p className='font-semibold'>
                   {successMessage}
                 </p>
@@ -242,7 +242,7 @@ function App() {
               <div>
                 <label
                   htmlFor='gadgetName'
-                  className='mb-2 block text-sm font-semibold text-slate-700'
+                  className='mb-2 block text-sm font-semibold text-slate-300'
                 >
                   Gadget Name
                 </label>
@@ -254,15 +254,15 @@ function App() {
                   value={form.gadgetName}
                   onChange={handleChange}
                   placeholder='Example: Galaxy Watch 8'
-                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                  className={`w-full rounded-lg border bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 ${
                     errors.gadgetName
-                      ? 'border-red-50 focus:ring-2 focus:ring-red-200'
-                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-'
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
                   }`}
                 />
 
                 {errors.gadgetName && (
-                  <p className='mt-1 text-sm font-medium text-red-600'>
+                  <p className='mt-1 text-sm font-medium text-red-400'>
                     {errors.gadgetName}
                   </p>
                 )}
@@ -271,7 +271,7 @@ function App() {
               <div>
                 <label
                   htmlFor='category'
-                  className='mb-2 block text-sm font-semibold text-slate-700'
+                  className='mb-2 block text-sm font-semibold text-slate-300'
                 >
                   Category
                 </label>
@@ -281,10 +281,10 @@ function App() {
                   name='category'
                   value={form.category}
                   onChange={handleChange}
-                  className={`w-full rounded-lg border bg-white px-4 py-3 outline-none transition ${
+                  className={`w-full rounded-lg border bg-slate-950 px-4 py-3 text-white outline-none transition ${
                     errors.category
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
                   }`}
                 >
                   <option value=''>Select a category</option>
@@ -295,7 +295,7 @@ function App() {
                 </select>
 
                 {errors.category && (
-                  <p className='mt-1 text-sm font-medium text-red-600'>
+                  <p className='mt-1 text-sm font-medium text-red-400'>
                     {errors.category}
                   </p>
                 )}
@@ -304,7 +304,7 @@ function App() {
               <div className='md:col-span-2'>
                 <label
                   htmlFor='manufacturer'
-                  className='mb-2 block text-sm font-semibold text-slate-700'
+                  className='mb-2 block text-sm font-semibold text-slate-300'
                 >
                   Manufacturer
                 </label>
@@ -316,15 +316,15 @@ function App() {
                   value={form.manufacturer}
                   onChange={handleChange}
                   placeholder='Example: Samsung Electronics'
-                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                  className={`w-full rounded-lg border bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 ${
                     errors.manufacturer
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
                   }`}
                 />
 
                 {errors.manufacturer && (
-                  <p className='mt-1 text-sm font-medium text-red-600'>
+                  <p className='mt-1 text-sm font-medium text-red-400'>
                     {errors.manufacturer}
                   </p>
                 )}
@@ -333,7 +333,7 @@ function App() {
               <div className='md:col-span-2'>
                 <label
                   htmlFor='healthRating'
-                  className='mb-2 block text-sm font-semibold text-slate-700'
+                  className='mb-2 block text-sm font-semibold text-slate-300'
                 >
                   Health Rating
                 </label>
@@ -347,15 +347,15 @@ function App() {
                   value={form.healthRating}
                   onChange={handleChange}
                   placeholder='Enter a rating from 1 to 100'
-                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                  className={`w-full rounded-lg border bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 ${
                     errors.healthRating
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
                   }`}
                 />
 
                 {errors.healthRating && (
-                  <p className='mt-1 text-sm font-medium text-red-600'>
+                  <p className='mt-1 text-sm font-medium text-red-400'>
                     {errors.healthRating}
                   </p>
                 )}
@@ -364,7 +364,7 @@ function App() {
               <div className='md:col-span-2'>
                 <label
                   htmlFor='techBrandName'
-                  className='mb-2 block text-sm font-semibold text-slate-700'
+                  className='mb-2 block text-sm font-semibold text-slate-300'
                 >
                   Tech Brand Name
                 </label>
@@ -376,22 +376,22 @@ function App() {
                   value={form.techBrandName}
                   onChange={handleChange}
                   placeholder='Example: Galaxy'
-                  className={`w-full rounded-lg border px-4 py-3 outline-none transition ${
+                  className={`w-full rounded-lg border bg-slate-950 px-4 py-3 text-white outline-none transition placeholder:text-slate-600 ${
                     errors.techBrandName
-                      ? 'border-red-500 focus:ring-2 focus:ring-red-200'
-                      : 'border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                      ? 'border-red-500 focus:ring-2 focus:ring-red-500/20'
+                      : 'border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
                   }`}
                 />
 
                 {errors.techBrandName && (
-                  <p className='mt-1 text-sm font-medium text-red-600'>
+                  <p className='mt-1 text-sm font-medium text-red-400'>
                     {errors.techBrandName}
                   </p>
                 )}
               </div>
 
               <fieldset className='md:col-span-2'>
-                <legend className='mb-3 text-sm font-semibold text-slate-700'>
+                <legend className='mb-3 text-sm font-semibold text-slate-300'>
                   User Role
                 </legend>
                 
@@ -399,8 +399,8 @@ function App() {
                   <label
                     className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
                       form.userRole === 'Engineer'
-                        ? 'border-blue-600 bg-blue-50 text-blue-700'
-                        : 'border-slate-300 bg-white text-slate-700'
+                        ? 'border-indigo-500 bg-indigo-500/15 text-indigo-300 shadow-lg shadow-indigo-950/30'
+                        : 'border-slate-700 bg-slate-950 text-slate-300 hover:border-indigo-500'
                     }`}
                   >
                     <input
@@ -409,7 +409,7 @@ function App() {
                       value='Engineer'
                       checked={form.userRole === 'Engineer'}
                       onChange={handleChange}
-                      className='h-4 w-4 accent-blue-600'
+                      className='h-4 w-4 accent-indigo-500'
                     />
 
                     <span className='font-medium'>Engineer</span>
@@ -418,8 +418,8 @@ function App() {
                   <label
                     className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition ${
                       form.userRole === 'Tester'
-                        ? 'border-blue-600 bg-blue-50 text-blue-700'
-                        : 'border-slate-300 bg-2hite text-slate-700'
+                        ? 'border-cyan-500 bg-cyan-500/15 text-cyan-300 shadow-lg shadow-cyan-950/30'
+                        : 'border-slate-700 bg-slate-950 text-slate-300 hover:border-cyan-500'
                     }`}
                   >
                     <input
@@ -428,7 +428,7 @@ function App() {
                       value='Tester'
                       checked={form.userRole === 'Tester'}
                       onChange={handleChange}
-                      className='h-4 w-4 accent-blue-600'
+                      className='h-4 w-4 accent-indigo-500'
                     />
 
                     <span className='font-medium'>Tester</span>
@@ -436,7 +436,7 @@ function App() {
                 </div>
 
                 {errors.userRole && (
-                  <p className='mt-2 text-sm font-medium text-red-600'>
+                  <p className='mt-2 text-sm font-medium text-red-400'>
                     {errors.userRole}
                   </p>
                 )}
@@ -445,35 +445,35 @@ function App() {
 
             <button
               type='submit'
-              className='mt-7 w-full rounded-lg bg-blue-600 px-5 py-3 font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200'
+              className='mt-7 w-full rounded-lg bg-gradient-to-r from-indigo-600 to-cyan-500 px-5 py-3 font-bold uppercase tracking-wider text-white shadow-lg shadow-indigo-950/40 transition hover:from-indigo-500 hover:to-cyan-400 focus:outline-none focus:ring-4 focus:ring-indigo-500/30'
             >
               Register Gadget
             </button>
           </form>
         </section>
 
-        <section className='mt-8 rounded-2xl bg-white p-6 shadow-lg md:p-8'>
+        <section className='mt-8 rounded-2xl border border-slate-800 bg-slate-900/90 p-6 shadow-2xl shadow-indigo-950/30 md:p-8'>
           <div className='mb-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between'>
             <div>
-              <p className='text-sm font-bold uppercase tracking-widest text-blue-600'>
+              <p className='text-sm font-bold uppercase tracking-widest text-cyan-400'>
                 Inventory
               </p>
 
-              <h2 className='text-2xl font-bold text-slate-900'>
+              <h2 className='text-2xl font-bold text-white'>
                 Gadget Registry
               </h2>
             </div>
             
-            <div className='rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700'>
+            <div className='rounded-full border border-indigo-500/40 bg-indigo-500/10 px-4 py-2 text-sm font-semibold text-indigo-300'>
               {gadgets.length} registered
             </div>
           </div>
 
-          <div className='mb-5 flex flex-col gap-3 rounded-lg bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between'>
+          <div className='mb-5 flex flex-col gap-3 rounded-lg border border-slate-800 bg-slate-950/80 p-4 sm:flex-row sm:items-center sm:justify-between'>
             <div>
               <label
                 htmlFor='roleFilter'
-                className='mr-3 text-sm font-semibold text-slate-700'
+                className='mr-3 text-sm font-semibold text-slate-300'
               >
                 Filter by User Role
               </label>
@@ -482,7 +482,7 @@ function App() {
                 id='roleFilter'
                 value={roleFilter}
                 onChange={(event) => setRoleFilter(event.target.value)}
-                className='rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+                className='rounded-lg border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-white outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20'
               >
                 <option value='All'>All Roles</option>
                 <option value='Engineer'>Engineer</option>
@@ -490,23 +490,23 @@ function App() {
               </select>
             </div>
 
-            <p className='text-sm text-slate-600'>
+            <p className='text-sm text-slate-400'>
               Showing {filteredGadgets.length} of {gadgets.length} records
             </p>
           </div>
 
-          <div className='overflow-x-auto'>
+          <div className='overflow-x-auto rounded-xl border border-slate-800'>
             <table className='w-full border-collapse text-left'>
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr
                     key={headerGroup.id}
-                    className='border-b-2 border-slate-200'
+                    className='border-b border-slate-700 bg-slate-950'
                   >
                     {headerGroup.headers.map((header) => (
                       <th
                         key={header.id}
-                        className='whitespace-nowrap px-4 py-3 text-xs font-bold uppercase tracking-wider text-slate-500'
+                        className='whitespace-nowrap px-4 py-3 text-xs font-bold uppercase tracking-wider text-indigo-300'
                       >
                         {flexRender(
                           header.column.columnDef.header,
@@ -523,16 +523,16 @@ function App() {
                   <tr
                     key={row.id}
                     onClick={() => setSelectedGadgetId(row.original.id)}
-                    className={`cursor-pointer border-b border-slate-100 transition ${
+                    className={`cursor-pointer border-b border-slate-800 transition ${
                       activeGadget?.id === row.original.id
-                        ? 'bg-blue-100'
-                        : 'hover:bg-blue-50'
+                        ? 'bg-indigo-500/20 shadow-[inset_4px_0_0_#6366f1]'
+                        : 'bg-slate-900 hover:bg-slate-800'
                     }`}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td
                         key={cell.id}
-                        className='whitespace-nowrap px-4 py-4 text-sm text-slate-700'
+                        className='whitespace-nowrap px-4 py-4 text-sm text-slate-300'
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
@@ -547,7 +547,7 @@ function App() {
                   <tr>
                     <td
                       colSpan={columns.length}
-                      className='px-4 py-12 text-center text-slate-500'
+                      className='bg-slate-900 px-4 py-12 text-center text-slate-500'
                     >
                       No gadgets registered yet.
                     </td>
@@ -557,8 +557,8 @@ function App() {
             </table>
           </div>
 
-          <div className="mt-6 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-5 sm:flex-row">
-            <p className="text-sm text-slate-600">
+          <div className='mt-6 flex flex-col items-center justify-between gap-4 border-t border-slate-800 pt-5 sm:flex-row'>
+            <p className='text-sm text-slate-400'>
               Page {table.getState().pagination.pageIndex + 1} of{' '}
               {Math.max(table.getPageCount(), 1)}
             </p>
@@ -568,7 +568,7 @@ function App() {
                 type="button"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
-                className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-40"
+                className='rounded-lg border border-slate-700 bg-slate-950 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-indigo-500 hover:text-indigo-300 disabled:cursor-not-allowed disabled:opacity-40'
               >
                 Previous
               </button>
@@ -577,27 +577,27 @@ function App() {
                 type="button"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+                className='rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:bg-slate-800 disabled:text-slate-600'
               >
                 Next
               </button>
             </div>
           </div>
 
-          <div className='mt-8 border-t border-slate-200 pt-6'>
-            <p className='text-sm font-bold uppercase tracking-widest text-blue-600'>
+          <div className='mt-8 border-t border-slate-800 pt-6'>
+            <p className='text-sm font-bold uppercase tracking-widest text-cyan-400'>
               Active Item Profile
             </p>
 
             {activeGadget ? (
-              <div className='mt-4 rounded-xl border border-blue-200 bg-blue-50 p-5'>
+              <div className='mt-4 rounded-xl border border-indigo-500/40 bg-gradient-to-br from-indigo-500/15 to-cyan-500/5 p-5 shadow-xl shadow-indigo-950/30'>
                 <div className='flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between'>
                   <div>
-                    <h3 className='text-2xl font-bold text-slate-900'>
+                    <h3 className='text-2xl font-black text-white'>
                       {activeGadget.gadgetName}
                     </h3>
 
-                    <p className='mt-1 text-slate-600'>
+                    <p className='mt-1 text-slate-400'>
                       {activeGadget.techBrandName}
                     </p>
                   </div>
@@ -605,8 +605,8 @@ function App() {
                   <span
                     className={`w-fit rounded-full px-3 py-1 text-sm font-bold ${
                       activeGadget.userRole === 'Engineer'
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-amber-500 text-white'
+                        ? 'border border-indigo-400 bg-indigo-500/20 text-indigo-200'
+                        : 'border border-cyan-400 bg-cyan-500/20 text-cyan-200'
                     }`}
                   >
                     {activeGadget.userRole}
@@ -615,44 +615,44 @@ function App() {
 
                 <dl className='mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2'>
                   <div>
-                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                    <dt className='text-xs font-bold uppercase tracking-wider text-cyan-400'>
                       Category
                     </dt>
-                    <dd className='mt-1 font-medium text-slate-900'>
+                    <dd className='mt-1 font-semibold text-white'>
                       {activeGadget.category}
                     </dd>
                   </div>
 
                   <div>
-                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                    <dt className='text-xs font-bold uppercase tracking-wider text-cyan-400'>
                       Manufacturer
                     </dt>
-                    <dd className='mt-1 font-medium text-slate-900'>
+                    <dd className='mt-1 font-semibold text-white'>
                       {activeGadget.manufacturer}
                     </dd>
                   </div>
 
                   <div>
-                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                    <dt className='text-xs font-bold uppercase tracking-wider text-cyan-400'>
                       Health Rating
                     </dt>
-                    <dd className='mt-1 font-medium text-slate-900'>
+                    <dd className='mt-1 font-semibold text-white'>
                       {activeGadget.healthRating}/100
                     </dd>
                   </div>
 
                   <div>
-                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                    <dt className='text-xs font-bold uppercase tracking-wider text-cyan-400'>
                       Tech Brand
                     </dt>
-                    <dd className='mt-1 font-medium text-slate-900'>
+                    <dd className='mt-1 font-semibold text-white'>
                       {activeGadget.techBrandName}
                     </dd>
                   </div>
                 </dl>
               </div>
             ) : (
-              <div className='mt-4 rounded-xl border border-dashed border-slate-300 p-8 text-center text-slate-500'>
+              <div className='mt-4 rounded-xl border border-dashed border-slate-700 bg-slate-950/60 p-8 text-center text-slate-500'>
                 Click a gadget row to display its complete details.
               </div>
             )}
