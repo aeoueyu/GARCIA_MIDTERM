@@ -1,4 +1,4 @@
-import { useState , useMemo } from 'react'
+import { useState , useMemo , useEffect } from 'react'
 import {
   flexRender,
   getCoreRowModel,
@@ -21,6 +21,9 @@ function App() {
   const [errors, setErrors] = useState({})
   const [gadgets, setGadgets] = useState([])
   const [successMessage, setSuccessMessage] = useState('')
+  const [selectedGadgetId, setSelectedGadgetId] = useState(null)
+  const [activeGadget, setActiveGadget] = useState(null)
+  const [roleFilter, setRoleFilter] = useState('All')
 
   const validateField = (name, value) => {
     if (name === 'gadgetName') {
@@ -140,6 +143,23 @@ function App() {
     setSuccessMessage('Gadget successfully registered!')
   }
 
+  useEffect(() => {
+    const selectedGadget =
+      gadgets.find((gadget) => gadget.id === selectedGadgetId) ?? null
+
+    setActiveGadget(selectedGadget)
+  }, [selectedGadgetId, gadgets])
+
+  const filteredGadgets = useMemo(() => {
+    if (roleFilter === 'All') {
+      return gadgets
+    }
+
+    return gadgets.filter(
+      (gadget) => gadget.userRole === roleFilter,
+    )
+  }, [gadgets, roleFilter])
+
   const columns = useMemo(
     () => [
       {
@@ -172,7 +192,7 @@ function App() {
   )
 
   const table = useReactTable({
-    data: gadgets,
+    data: filteredGadgets,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -449,6 +469,32 @@ function App() {
             </div>
           </div>
 
+          <div className='mb-5 flex flex-col gap-3 rounded-lg bg-slate-50 p-4 sm:flex-row sm:items-center sm:justify-between'>
+            <div>
+              <label
+                htmlFor='roleFilter'
+                className='mr-3 text-sm font-semibold text-slate-700'
+              >
+                Filter by User Role
+              </label>
+
+              <select
+                id='roleFilter'
+                value={roleFilter}
+                onChange={(event) => setRoleFilter(event.target.value)}
+                className='rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100'
+              >
+                <option value='All'>All Roles</option>
+                <option value='Engineer'>Engineer</option>
+                <option value='Tester'>Tester</option>
+              </select>
+            </div>
+
+            <p className='text-sm text-slate-600'>
+              Showing {filteredGadgets.length} of {gadgets.length} records
+            </p>
+          </div>
+
           <div className='overflow-x-auto'>
             <table className='w-full border-collapse text-left'>
               <thead>
@@ -476,7 +522,12 @@ function App() {
                 {table.getRowModel().rows.map((row) => (
                   <tr
                     key={row.id}
-                    className='border-b border-slate-100 transition hover:bg-blue-50'
+                    onClick={() => setSelectedGadgetId(row.original.id)}
+                    className={`cursor-pointer border-b border-slate-100 transition ${
+                      activeGadget?.id === row.original.id
+                        ? 'bg-blue-100'
+                        : 'hover:bg-blue-50'
+                    }`}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <td
@@ -531,6 +582,80 @@ function App() {
                 Next
               </button>
             </div>
+          </div>
+
+          <div className='mt-8 border-t border-slate-200 pt-6'>
+            <p className='text-sm font-bold uppercase tracking-widest text-blue-600'>
+              Active Item Profile
+            </p>
+
+            {activeGadget ? (
+              <div className='mt-4 rounded-xl border border-blue-200 bg-blue-50 p-5'>
+                <div className='flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between'>
+                  <div>
+                    <h3 className='text-2xl font-bold text-slate-900'>
+                      {activeGadget.gadgetName}
+                    </h3>
+
+                    <p className='mt-1 text-slate-600'>
+                      {activeGadget.techBrandName}
+                    </p>
+                  </div>
+
+                  <span
+                    className={`w-fit rounded-full px-3 py-1 text-sm font-bold ${
+                      activeGadget.userRole === 'Engineer'
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-amber-500 text-white'
+                    }`}
+                  >
+                    {activeGadget.userRole}
+                  </span>
+                </div>
+
+                <dl className='mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2'>
+                  <div>
+                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                      Category
+                    </dt>
+                    <dd className='mt-1 font-medium text-slate-900'>
+                      {activeGadget.category}
+                    </dd>
+                  </div>
+
+                  <div>
+                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                      Manufacturer
+                    </dt>
+                    <dd className='mt-1 font-medium text-slate-900'>
+                      {activeGadget.manufacturer}
+                    </dd>
+                  </div>
+
+                  <div>
+                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                      Health Rating
+                    </dt>
+                    <dd className='mt-1 font-medium text-slate-900'>
+                      {activeGadget.healthRating}/100
+                    </dd>
+                  </div>
+
+                  <div>
+                    <dt className='text-xs font-bold uppercase text-slate-500'>
+                      Tech Brand
+                    </dt>
+                    <dd className='mt-1 font-medium text-slate-900'>
+                      {activeGadget.techBrandName}
+                    </dd>
+                  </div>
+                </dl>
+              </div>
+            ) : (
+              <div className='mt-4 rounded-xl border border-dashed border-slate-300 p-8 text-center text-slate-500'>
+                Click a gadget row to display its complete details.
+              </div>
+            )}
           </div>
         </section>
       </div>
