@@ -13,6 +13,8 @@ const initialForm = {
 function App() {
   const [form, setForm] = useState(initialForm)
   const [errors, setErrors] = useState({})
+  const [gadgets, setGadgets] = useState([])
+  const [successMessage, setSuccessMessage] = useState('')
 
   const validateField = (name, value) => {
     if (name === 'gadgetName') {
@@ -78,6 +80,8 @@ function App() {
       ...previousErrors,
       [name]: validateField(name,value),
     }))
+
+    setSuccessMessage('')
   }
 
   // const handleGadgetNameChange = (event) => {
@@ -93,6 +97,42 @@ function App() {
   //     gadgetName: validateGadgetName(value),
   //   }))
   // }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    const newErrors = {}
+
+    Object.entries(form).forEach(([name, value]) => {
+      const errorMessage = validateField(name, value)
+
+      if (errorMessage) {
+        newErrors[name] = errorMessage
+      }
+    })
+
+    setErrors(newErrors)
+
+    if (Object.keys(newErrors).length > 0) {
+      setSuccessMessage('')
+      return
+    }
+
+    const newGadget = {
+      id: Date.now(),
+      ...form,
+      healthRating: Number(form.healthRating),
+    }
+
+    setGadgets((previousGadgets) => [
+      ...previousGadgets,
+      newGadget,
+    ])
+
+    setForm(initialForm)
+    setErrors({})
+    setSuccessMessage('Gadget successfully registered!')
+  }
 
   return (
     <main className='min-h-screen bg-slate-100 px-4 py-10'>
@@ -116,7 +156,18 @@ function App() {
             </p>
           </div>
 
-          <form onSubmit={(event) => event.preventDefault()} noValidate>
+          <form onSubmit={handleSubmit} noValidate>
+            {successMessage && (
+              <div className='mb-5 rounded-lg border border-green-200 bg-green-50 p-4 text-green-700'>
+                <p className='font-semibold'>
+                  {successMessage}
+                </p>
+
+                <p className='mt-1 text-sm'>
+                  Total registered gadgets: {gadgets.length}
+                </p>
+              </div>
+            )}
             <div className='grid grid-cols-1 gap-5 md:grid-cols-2'>
               <div>
                 <label
@@ -321,6 +372,13 @@ function App() {
                 )}
               </fieldset>
             </div>
+
+            <button
+              type='submit'
+              className='mt-7 w-full rounded-lg bg-blue-600 px-5 py-3 font-bold text-white transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200'
+            >
+              Register Gadget
+            </button>
           </form>
         </section>
       </div>
